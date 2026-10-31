@@ -1,0 +1,6 @@
+{
+  "name": "finance-desk",
+  "version": "0.1.0",
+  "description": "金融デスク（提案サポート）: 日本の上場企業1社について、投資銀行の視点で提案の切り口と提案メモを作る。公開データ（edinetdb / EDINET / J-Quants / TDnet）のみ使用。Rogo の Felix と Anthropic pitch-agent を参考に「切り口の生成」工程を追加した個人用プラグイン",
+  "author": { "name": "YH19910427" }
+}

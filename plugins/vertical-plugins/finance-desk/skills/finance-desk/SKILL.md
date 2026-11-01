@@ -1,7 +1,7 @@
 ---
 name: finance-desk
 description: 「/desk 会社名」「この会社に何を提案できる」「提案の切り口を出して」のように、上場企業1社について投資銀行の視点で提案の切り口と提案メモを作りたいときに使う。企業カルテ → シグナル → 切り口 → 証拠 → 提案メモ の順に進め、全ての数字に出典を付ける。
-version: 0.1（2026-10-31 ドラフト。Rogo の Felix／Anthropic pitch-agent を参考に、切り口の工程を足したもの）
+version: 0.2（2026-11-01。edinetdb MCP のツール名と使い方を追記。4 社で試験済み）
 ---
 
 # 金融デスク（提案サポート）— 親スキル
@@ -13,7 +13,9 @@ version: 0.1（2026-10-31 ドラフト。Rogo の Felix／Anthropic pitch-agent 
 ## 定義ブロック（Rogo の Agent Builder と同じ4項目）
 - **何を**：会社名 or 証券コードを受け取り、提案メモ（Markdown）を返す
 - **出力形式**：`references/memo-template.md` に沿った Markdown。Excel／PPT は別スキル（支線）
-- **ソース**：edinetdb MCP → EDINET API v2 → J-Quants（株価）→ TDnet（適時開示）→ 会社 IR → Web 検索。有料データは使わない
+- **ソース**：edinetdb MCP（第 1）→ EDINET API v2 → J-Quants（株価）→ TDnet（適時開示）→ 会社 IR → Web 検索。有料データは使わない
+  - edinetdb MCP の使い分け：`search_companies`（コード解決）→ `get_company`（最新の指標・短信・予想）→ `get_financials`（有報の BS/PL/CF、docID、株数、自己株式）→ `get_segments`→ `get_cross_shareholdings`（政策保有株、簿価は円）→ `get_major_shareholders`＋`get_shareholder_categories`（大株主・所有者別）→ `get_shareholders`（大量保有報告の全文）→ `get_real_estate`→ `get_parent_companies`→ `get_text_blocks_structured`（配当方針・KPI）。候補出しは `screen_companies`（比率は小数、金額は百万円）、アクティビストは `get_activist_positions`
+  - 注意：有報 XBRL の純利益は非継続事業込み。継続事業ベースは短信・決算説明資料で確認する
 - **案件**：Obsidian `Projects/企業カルテ/<会社名>.md`（カルテ）と、案件フォルダ `04 Valuation/`（メモ）
 
 ## 手順
